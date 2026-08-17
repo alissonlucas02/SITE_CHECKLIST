@@ -1,0 +1,1925 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>Histórico - Checklist TI</title>
+
+
+<style>
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    background: #f1f4f8;
+
+    color: #1f2937;
+
+    min-height: 100vh;
+}
+
+
+/* HEADER */
+
+header {
+
+    background:
+        linear-gradient(
+            135deg,
+            #111827,
+            #1f2937
+        );
+
+    color: white;
+
+    padding: 25px 20px;
+
+    box-shadow:
+        0 3px 15px
+        rgba(0,0,0,.15);
+}
+
+
+.header-content {
+
+    max-width: 1100px;
+
+    margin: auto;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 20px;
+}
+
+
+.logo-area h1 {
+
+    font-size: 25px;
+
+    margin-bottom: 5px;
+}
+
+
+.logo-area p {
+
+    color: #cbd5e1;
+
+    font-size: 14px;
+}
+
+
+.clock {
+
+    text-align: right;
+}
+
+
+.clock .time {
+
+    font-size: 22px;
+
+    font-weight: bold;
+}
+
+
+.clock .date {
+
+    font-size: 13px;
+
+    color: #cbd5e1;
+
+    margin-top: 4px;
+}
+
+
+/* MAIN */
+
+main {
+
+    max-width: 1100px;
+
+    margin: 30px auto;
+
+    padding:
+        0 15px 50px;
+}
+
+
+/* CARD */
+
+.card {
+
+    background: white;
+
+    border-radius: 14px;
+
+    padding: 25px;
+
+    margin-bottom: 20px;
+
+    box-shadow:
+        0 4px 15px
+        rgba(0,0,0,.06);
+}
+
+
+.card-title {
+
+    font-size: 19px;
+
+    font-weight: bold;
+
+    margin-bottom: 20px;
+
+    padding-bottom: 12px;
+
+    border-bottom:
+        1px solid #e5e7eb;
+}
+
+
+/* FILTROS */
+
+.filters {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 18px;
+}
+
+
+.form-group {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 8px;
+}
+
+
+.form-group label {
+
+    font-weight: bold;
+
+    font-size: 14px;
+}
+
+
+input,
+select {
+
+    width: 100%;
+
+    padding: 12px 13px;
+
+    border:
+        1px solid #d1d5db;
+
+    border-radius: 8px;
+
+    font-size: 14px;
+
+    outline: none;
+
+    background: white;
+}
+
+
+input:focus,
+select:focus {
+
+    border-color: #2563eb;
+
+    box-shadow:
+        0 0 0 3px
+        rgba(37,99,235,.1);
+}
+
+
+/* BOTÕES */
+
+.actions {
+
+    display: flex;
+
+    gap: 10px;
+
+    margin-top: 20px;
+
+    flex-wrap: wrap;
+}
+
+
+button {
+
+    border: none;
+
+    border-radius: 8px;
+
+    padding: 12px 18px;
+
+    font-size: 14px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: .2s;
+}
+
+
+.btn-primary {
+
+    background: #2563eb;
+
+    color: white;
+}
+
+
+.btn-primary:hover {
+
+    background: #1d4ed8;
+}
+
+
+.btn-secondary {
+
+    background: #e5e7eb;
+
+    color: #374151;
+}
+
+
+.btn-secondary:hover {
+
+    background: #d1d5db;
+}
+
+
+.btn-copy {
+
+    background: #2563eb;
+
+    color: white;
+
+    padding: 9px 14px;
+
+    font-size: 13px;
+}
+
+
+.btn-copy:hover {
+
+    background: #1d4ed8;
+}
+
+
+.btn-copy.copied {
+
+    background: #16a34a;
+}
+
+
+/* RESUMO */
+
+.summary {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 12px;
+
+    margin-bottom: 20px;
+}
+
+
+.summary-box {
+
+    background: #f8fafc;
+
+    border:
+        1px solid #e5e7eb;
+
+    border-radius: 10px;
+
+    padding: 15px;
+
+    text-align: center;
+}
+
+
+.summary-number {
+
+    font-size: 24px;
+
+    font-weight: bold;
+
+    margin-bottom: 5px;
+}
+
+
+.summary-label {
+
+    font-size: 12px;
+
+    color: #6b7280;
+}
+
+
+/* HISTÓRICO */
+
+.history-item {
+
+    border:
+        1px solid #e5e7eb;
+
+    border-radius: 10px;
+
+    padding: 18px;
+
+    margin-bottom: 12px;
+
+    background: #fafafa;
+}
+
+
+.history-header {
+
+    display: flex;
+
+    justify-content:
+        space-between;
+
+    gap: 10px;
+
+    flex-wrap: wrap;
+
+    margin-bottom: 12px;
+}
+
+
+.badge {
+
+    padding: 5px 10px;
+
+    border-radius: 20px;
+
+    font-size: 12px;
+
+    font-weight: bold;
+}
+
+
+.badge-abertura {
+
+    background: #dcfce7;
+
+    color: #166534;
+}
+
+
+.badge-fechamento {
+
+    background: #dbeafe;
+
+    color: #1e40af;
+}
+
+
+.history-info {
+
+    font-size: 14px;
+
+    color: #4b5563;
+
+    line-height: 1.8;
+}
+
+
+.history-actions {
+
+    display: flex;
+
+    gap: 8px;
+
+    margin-top: 12px;
+}
+
+
+.empty {
+
+    text-align: center;
+
+    padding: 40px;
+
+    color: #9ca3af;
+}
+
+
+/* VOLTAR */
+
+.back {
+
+    margin-bottom: 20px;
+}
+
+
+footer {
+
+    text-align: center;
+
+    color: #6b7280;
+
+    font-size: 12px;
+
+    padding: 20px;
+}
+
+
+/* RESPONSIVO */
+
+@media (max-width: 800px) {
+
+    .filters {
+
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+
+    .summary {
+
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    .header-content {
+
+        flex-direction: column;
+
+        align-items: flex-start;
+    }
+
+
+    .clock {
+
+        text-align: left;
+    }
+
+
+    .filters {
+
+        grid-template-columns: 1fr;
+    }
+
+
+    .summary {
+
+        grid-template-columns: 1fr 1fr;
+    }
+
+
+    .card {
+
+        padding: 18px;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<header>
+
+<div class="header-content">
+
+<div class="logo-area">
+
+<h1>
+🔎 Histórico de Checklists
+</h1>
+
+<p>
+Consulta e filtragem dos registros
+</p>
+
+</div>
+
+
+<div class="clock">
+
+<div
+    class="time"
+    id="clock"
+>
+00:00:00
+</div>
+
+<div
+    class="date"
+    id="date"
+>
+--/--/----
+</div>
+
+</div>
+
+</div>
+
+</header>
+
+
+
+<main>
+
+
+<div class="back">
+
+<button
+    class="btn-secondary"
+    onclick="window.location.href='index.html'"
+>
+← Voltar para o checklist
+</button>
+
+</div>
+
+
+
+<!-- FILTROS -->
+
+<div class="card">
+
+<div class="card-title">
+
+🔎 Filtros
+
+</div>
+
+
+<div class="filters">
+
+
+<!-- DATA INICIAL -->
+
+<div class="form-group">
+
+<label>
+Data inicial
+</label>
+
+<input
+    type="date"
+    id="dataInicial"
+>
+
+</div>
+
+
+<!-- DATA FINAL -->
+
+<div class="form-group">
+
+<label>
+Data final
+</label>
+
+<input
+    type="date"
+    id="dataFinal"
+>
+
+</div>
+
+
+<!-- TURNO -->
+
+<div class="form-group">
+
+<label>
+Turno
+</label>
+
+<select id="turnoFiltro">
+
+<option value="">
+Todos
+</option>
+
+<option value="Abertura">
+Abertura
+</option>
+
+<option value="Fechamento">
+Fechamento
+</option>
+
+</select>
+
+</div>
+
+
+<!-- LINKS -->
+
+<div class="form-group">
+
+<label>
+Status dos links
+</label>
+
+<select id="linksFiltro">
+
+<option value="">
+Todos
+</option>
+
+<option value="Sim">
+Todos online
+</option>
+
+<option value="Não">
+Com problema
+</option>
+
+</select>
+
+</div>
+
+
+<!-- ANTENA -->
+
+<div class="form-group">
+
+<label>
+Status das antenas
+</label>
+
+<select id="antenaFiltro">
+
+<option value="">
+Todos
+</option>
+
+<option value="Não">
+Nenhuma OFF
+</option>
+
+<option value="Sim">
+Com antena OFF
+</option>
+
+</select>
+
+</div>
+
+
+<!-- BATERIAS -->
+
+<div class="form-group">
+
+<label>
+Quantidade mínima de baterias
+</label>
+
+<input
+    type="number"
+    id="bateriasFiltro"
+    min="0"
+    placeholder="Ex.: 10"
+>
+
+</div>
+
+
+<!-- OBSERVAÇÃO -->
+
+<div class="form-group">
+
+<label>
+Pesquisar observação
+</label>
+
+<input
+    type="text"
+    id="observacaoFiltro"
+    placeholder="Digite uma palavra..."
+>
+
+</div>
+
+
+</div>
+
+
+<div class="actions">
+
+<button
+    class="btn-primary"
+    onclick="filtrarHistorico()"
+>
+🔎 Filtrar
+</button>
+
+
+<button
+    class="btn-secondary"
+    onclick="limparFiltros()"
+>
+↻ Limpar filtros
+</button>
+
+</div>
+
+</div>
+
+
+
+<!-- RESUMO -->
+
+<div class="summary">
+
+<div class="summary-box">
+
+<div
+    class="summary-number"
+    id="totalRegistros"
+>
+0
+</div>
+
+<div class="summary-label">
+Total encontrado
+</div>
+
+</div>
+
+
+<div class="summary-box">
+
+<div
+    class="summary-number"
+    id="totalAberturas"
+>
+0
+</div>
+
+<div class="summary-label">
+Aberturas
+</div>
+
+</div>
+
+
+<div class="summary-box">
+
+<div
+    class="summary-number"
+    id="totalFechamentos"
+>
+0
+</div>
+
+<div class="summary-label">
+Fechamentos
+</div>
+
+</div>
+
+
+<div class="summary-box">
+
+<div
+    class="summary-number"
+    id="totalProblemas"
+>
+0
+</div>
+
+<div class="summary-label">
+Com problemas
+</div>
+
+</div>
+
+</div>
+
+
+
+<!-- RESULTADOS -->
+
+<div class="card">
+
+<div class="card-title">
+
+📋 Resultados
+
+</div>
+
+
+<div id="resultados"></div>
+
+</div>
+
+
+</main>
+
+
+
+<footer>
+
+Sistema de Checklist Operacional • TI
+
+</footer>
+
+
+
+<script>
+
+
+/* ==================================
+   RELÓGIO
+================================== */
+
+function atualizarRelogio() {
+
+    const agora =
+        new Date();
+
+
+    document
+        .getElementById("clock")
+        .textContent =
+        agora.toLocaleTimeString(
+            "pt-BR"
+        );
+
+
+    document
+        .getElementById("date")
+        .textContent =
+        agora.toLocaleDateString(
+            "pt-BR"
+        );
+
+}
+
+
+setInterval(
+    atualizarRelogio,
+    1000
+);
+
+
+atualizarRelogio();
+
+
+
+/* ==================================
+   PEGAR HISTÓRICO
+================================== */
+
+function obterHistorico() {
+
+    return JSON.parse(
+        localStorage.getItem(
+            "checklists"
+        )
+    ) || [];
+
+}
+
+
+
+/* ==================================
+   FILTRAR
+================================== */
+
+function filtrarHistorico() {
+
+
+    const historico =
+        obterHistorico();
+
+
+    const dataInicial =
+        document
+        .getElementById(
+            "dataInicial"
+        )
+        .value;
+
+
+    const dataFinal =
+        document
+        .getElementById(
+            "dataFinal"
+        )
+        .value;
+
+
+    const turno =
+        document
+        .getElementById(
+            "turnoFiltro"
+        )
+        .value;
+
+
+    const links =
+        document
+        .getElementById(
+            "linksFiltro"
+        )
+        .value;
+
+
+    const antena =
+        document
+        .getElementById(
+            "antenaFiltro"
+        )
+        .value;
+
+
+    const baterias =
+        document
+        .getElementById(
+            "bateriasFiltro"
+        )
+        .value;
+
+
+    const observacao =
+        document
+        .getElementById(
+            "observacaoFiltro"
+        )
+        .value
+        .toLowerCase()
+        .trim();
+
+
+
+    const resultados =
+        historico.filter(
+            registro => {
+
+
+                /* DATA */
+
+                const partes =
+                    registro.data
+                    .split("/");
+
+
+                const dataRegistro =
+                    `${partes[2]}-${partes[1]}-${partes[0]}`;
+
+
+                if (
+                    dataInicial &&
+                    dataRegistro < dataInicial
+                ) {
+
+                    return false;
+
+                }
+
+
+                if (
+                    dataFinal &&
+                    dataRegistro > dataFinal
+                ) {
+
+                    return false;
+
+                }
+
+
+
+                /* TURNO */
+
+                if (
+                    turno &&
+                    registro.turno !== turno
+                ) {
+
+                    return false;
+
+                }
+
+
+
+                /* LINKS */
+
+                if (
+                    links &&
+                    registro.links !== links
+                ) {
+
+                    return false;
+
+                }
+
+
+
+                /* ANTENA */
+
+                if (
+                    antena &&
+                    registro.antena !== antena
+                ) {
+
+                    return false;
+
+                }
+
+
+
+                /* BATERIAS */
+
+                if (
+                    baterias !== "" &&
+                    Number(
+                        registro.baterias
+                    )
+                    <
+                    Number(baterias)
+                ) {
+
+                    return false;
+
+                }
+
+
+
+                /* OBSERVAÇÃO */
+
+                if (
+                    observacao &&
+                    !(
+                        registro
+                        .observacoes
+                        ||
+                        ""
+                    )
+                    .toLowerCase()
+                    .includes(
+                        observacao
+                    )
+                ) {
+
+                    return false;
+
+                }
+
+
+                return true;
+
+            }
+        );
+
+
+    exibirResultados(
+        resultados
+    );
+
+}
+
+
+
+/* ==================================
+   EXIBIR RESULTADOS
+================================== */
+
+function exibirResultados(
+    registros
+) {
+
+
+    const container =
+        document
+        .getElementById(
+            "resultados"
+        );
+
+
+    /* RESUMO */
+
+    document
+        .getElementById(
+            "totalRegistros"
+        )
+        .textContent =
+        registros.length;
+
+
+    document
+        .getElementById(
+            "totalAberturas"
+        )
+        .textContent =
+        registros.filter(
+            r =>
+                r.turno === "Abertura"
+        ).length;
+
+
+    document
+        .getElementById(
+            "totalFechamentos"
+        )
+        .textContent =
+        registros.filter(
+            r =>
+                r.turno === "Fechamento"
+        ).length;
+
+
+    document
+        .getElementById(
+            "totalProblemas"
+        )
+        .textContent =
+
+        registros.filter(
+            r =>
+                r.links === "Não" ||
+                r.antena === "Sim"
+        ).length;
+
+
+
+    /* SEM RESULTADO */
+
+    if (
+        registros.length === 0
+    ) {
+
+        container.innerHTML = `
+
+            <div class="empty">
+
+                🔍
+
+                <br><br>
+
+                Nenhum checklist encontrado
+                com os filtros selecionados.
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+
+    /* RESULTADOS */
+
+    container.innerHTML =
+
+        registros
+        .map(
+            registro => {
+
+
+                const classe =
+                    registro.turno === "Abertura"
+
+                    ? "badge-abertura"
+
+                    : "badge-fechamento";
+
+
+                return `
+
+                <div
+                    class="history-item"
+                >
+
+
+                    <div
+                        class="history-header"
+                    >
+
+                        <strong>
+
+                            ${registro.data}
+
+                            às
+
+                            ${registro.hora}
+
+                        </strong>
+
+
+                        <span
+                            class="badge ${classe}"
+                        >
+
+                            ${registro.turno}
+
+                        </span>
+
+                    </div>
+
+
+
+                    <div
+                        class="history-info"
+                    >
+
+
+                        🔋 Baterias:
+
+                        <strong>
+
+                            ${registro.baterias}
+
+                        </strong>
+
+
+                        <br>
+
+
+
+                        🌐 Links:
+
+                        <strong>
+
+                            ${
+                                registro.links === "Sim"
+
+                                ? "✅ Todos online"
+
+                                : "❌ Com problema"
+                            }
+
+                        </strong>
+
+
+
+                        ${
+                            registro.links === "Não"
+
+                            ?
+
+                            `
+
+                            <br>
+
+                            ⚠️ Links:
+
+                            <strong>
+
+                                ${
+                                    registro
+                                    .linksProblema
+                                    ?.join(", ")
+                                    ||
+                                    "Não informado"
+                                }
+
+                            </strong>
+
+                            `
+
+                            :
+
+                            ""
+
+                        }
+
+
+
+                        <br>
+
+
+
+                        📡 Antenas:
+
+                        <strong>
+
+                            ${
+                                registro.antena === "Não"
+
+                                ? "✅ Nenhuma OFF"
+
+                                : "❌ Existe antena OFF"
+                            }
+
+                        </strong>
+
+
+
+                        ${
+                            registro.qualAntena
+
+                            ?
+
+                            `
+
+                            <br>
+
+                            ⚠️ Antena:
+
+                            <strong>
+
+                                ${registro.qualAntena}
+
+                            </strong>
+
+                            `
+
+                            :
+
+                            ""
+
+                        }
+
+
+
+                        <br>
+
+
+
+                        🔧 Hack Central:
+
+                        <strong>
+
+                            ${registro.hack || "-"}
+
+                        </strong>
+
+
+
+                        ${
+                            registro.impressoras
+
+                            ?
+
+                            `
+
+                            <br>
+
+                            🖨️ Impressoras:
+
+                            <strong>
+
+                                ${registro.impressoras}
+
+                            </strong>
+
+                            `
+
+                            :
+
+                            ""
+
+                        }
+
+
+
+                        ${
+                            registro.etiquetas
+
+                            ?
+
+                            `
+
+                            <br>
+
+                            🏷️ Etiquetas:
+
+                            <strong>
+
+                                ${registro.etiquetas}
+
+                            </strong>
+
+                            `
+
+                            :
+
+                            ""
+
+                        }
+
+
+
+                        ${
+                            registro.auditoria
+
+                            ?
+
+                            `
+
+                            <br>
+
+                            🔎 Auditoria:
+
+                            <strong>
+
+                                ${registro.auditoria}
+
+                            </strong>
+
+                            `
+
+                            :
+
+                            ""
+
+                        }
+
+
+
+                        ${
+                            registro.limpeza
+
+                            ?
+
+                            `
+
+                            <br>
+
+                            🧹 Limpeza:
+
+                            <strong>
+
+                                ${registro.limpeza}
+
+                            </strong>
+
+                            `
+
+                            :
+
+                            ""
+
+                        }
+
+
+
+                        ${
+                            registro.observacoes
+
+                            ?
+
+                            `
+
+                            <br><br>
+
+                            📝
+
+                            <strong>
+                                Observação:
+                            </strong>
+
+                            <br>
+
+                            ${registro.observacoes}
+
+                            `
+
+                            :
+
+                            ""
+
+                        }
+
+
+                    </div>
+
+
+
+                    <div
+                        class="history-actions"
+                    >
+
+                        <button
+                            class="btn-copy"
+                            onclick="
+                                copiarChecklist(
+                                    ${registro.id},
+                                    this
+                                )
+                            "
+                        >
+
+                            📋 Copiar
+
+                        </button>
+
+
+                    </div>
+
+
+                </div>
+
+                `;
+
+            }
+        )
+        .join("");
+
+}
+
+
+
+/* ==================================
+   COPIAR
+================================== */
+
+async function copiarChecklist(
+    id,
+    botao
+) {
+
+
+    const historico =
+        obterHistorico();
+
+
+    const registro =
+        historico.find(
+            item =>
+                item.id === id
+        );
+
+
+    if (!registro) {
+
+        return;
+
+    }
+
+
+    let mensagem = "";
+
+
+    mensagem +=
+        "📋 CHECKLIST OPERACIONAL - TI\n";
+
+    mensagem +=
+        "━━━━━━━━━━━━━━━━━━━━\n\n";
+
+
+    mensagem +=
+        `📅 Data: ${registro.data}\n`;
+
+    mensagem +=
+        `⏰ Horário: ${registro.hora}\n`;
+
+    mensagem +=
+        `🔄 Turno: ${registro.turno.toUpperCase()}\n\n`;
+
+
+    mensagem +=
+        `🔋 Baterias: ${registro.baterias}\n\n`;
+
+
+    mensagem +=
+        "🌐 LINKS\n";
+
+
+    if (
+        registro.links === "Sim"
+    ) {
+
+        mensagem +=
+            "✅ Todos os links online: SIM\n";
+
+    } else {
+
+        mensagem +=
+            "❌ Todos os links online: NÃO\n";
+
+
+        if (
+            registro.linksProblema &&
+            registro.linksProblema.length
+        ) {
+
+            mensagem +=
+                "⚠️ Links com problema:\n";
+
+
+            registro.linksProblema
+                .forEach(
+                    link => {
+
+                        mensagem +=
+                            `• ${link}\n`;
+
+                    }
+                );
+
+        }
+
+    }
+
+
+    mensagem += "\n";
+
+
+    mensagem +=
+        "📡 ANTENAS\n";
+
+
+    mensagem +=
+
+        registro.antena === "Não"
+
+        ?
+
+        "✅ Nenhuma antena OFF\n"
+
+        :
+
+        "❌ Existe antena OFF\n";
+
+
+    if (
+        registro.qualAntena
+    ) {
+
+        mensagem +=
+            `⚠️ Antena: ${registro.qualAntena}\n`;
+
+    }
+
+
+    mensagem += "\n";
+
+
+    mensagem +=
+        "🔧 VISTORIA HACK CENTRAL\n";
+
+
+    mensagem +=
+        registro.hack === "Sim"
+
+        ?
+
+        "✅ Realizada\n"
+
+        :
+
+        "❌ Não realizada\n";
+
+
+    mensagem += "\n";
+
+
+    if (
+        registro.impressoras
+    ) {
+
+        mensagem +=
+            "🖨️ VISTORIA DAS IMPRESSORAS\n";
+
+
+        mensagem +=
+
+            registro.impressoras === "Sim"
+
+            ?
+
+            "✅ Realizada\n"
+
+            :
+
+            "❌ Não realizada\n";
+
+
+        mensagem += "\n";
+
+    }
+
+
+    if (
+        registro.turno === "Fechamento"
+    ) {
+
+        mensagem +=
+            "📋 ROTINAS DO FECHAMENTO\n";
+
+
+        if (
+            registro.etiquetas
+        ) {
+
+            mensagem +=
+                `🏷️ Etiquetas: ${registro.etiquetas}\n`;
+
+        }
+
+
+        if (
+            registro.auditoria
+        ) {
+
+            mensagem +=
+                `🔎 Auditoria: ${registro.auditoria}\n`;
+
+        }
+
+
+        if (
+            registro.limpeza
+        ) {
+
+            mensagem +=
+                `🧹 Limpeza: ${registro.limpeza}\n`;
+
+        }
+
+
+        mensagem += "\n";
+
+    }
+
+
+    mensagem +=
+        "📝 OBSERVAÇÕES\n";
+
+
+    mensagem +=
+
+        registro.observacoes
+
+        ?
+
+        registro.observacoes
+
+        :
+
+        "Nenhuma observação.";
+
+
+    mensagem += "\n\n";
+
+    mensagem +=
+        "━━━━━━━━━━━━━━━━━━━━\n";
+
+    mensagem +=
+        "✅ CHECKLIST FINALIZADO";
+
+
+    await navigator
+        .clipboard
+        .writeText(
+            mensagem
+        );
+
+
+    const texto =
+        botao.innerHTML;
+
+
+    botao.innerHTML =
+        "✓ Copiado!";
+
+
+    botao.classList.add(
+        "copied"
+    );
+
+
+    setTimeout(
+        () => {
+
+            botao.innerHTML =
+                texto;
+
+            botao.classList.remove(
+                "copied"
+            );
+
+        },
+        2000
+    );
+
+}
+
+
+
+/* ==================================
+   LIMPAR FILTROS
+================================== */
+
+function limparFiltros() {
+
+
+    document
+        .getElementById(
+            "dataInicial"
+        )
+        .value = "";
+
+
+    document
+        .getElementById(
+            "dataFinal"
+        )
+        .value = "";
+
+
+    document
+        .getElementById(
+            "turnoFiltro"
+        )
+        .value = "";
+
+
+    document
+        .getElementById(
+            "linksFiltro"
+        )
+        .value = "";
+
+
+    document
+        .getElementById(
+            "antenaFiltro"
+        )
+        .value = "";
+
+
+    document
+        .getElementById(
+            "bateriasFiltro"
+        )
+        .value = "";
+
+
+    document
+        .getElementById(
+            "observacaoFiltro"
+        )
+        .value = "";
+
+
+    exibirResultados(
+        obterHistorico()
+    );
+
+}
+
+
+
+/* ==================================
+   INICIAR
+================================== */
+
+exibirResultados(
+    obterHistorico()
+);
+
+</script>
+
+
+</body>
+
+</html>

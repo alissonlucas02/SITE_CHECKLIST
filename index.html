@@ -1,0 +1,1861 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Checklist Operacional - TI</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f1f4f8;
+            color: #1f2937;
+            min-height: 100vh;
+        }
+
+        header {
+            background: linear-gradient(135deg, #111827, #1f2937);
+            color: white;
+            padding: 25px 20px;
+            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        .header-content {
+            max-width: 1000px;
+            margin: auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .logo-area h1 {
+            font-size: 25px;
+            margin-bottom: 5px;
+        }
+
+        .logo-area p {
+            color: #cbd5e1;
+            font-size: 14px;
+        }
+
+        .clock {
+            text-align: right;
+        }
+
+        .clock .time {
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .clock .date {
+            font-size: 13px;
+            color: #cbd5e1;
+            margin-top: 4px;
+        }
+
+        main {
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 0 15px 50px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 14px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+        }
+
+        .card-title {
+            font-size: 19px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .form-group {
+            margin-bottom: 22px;
+        }
+
+        label.title {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 10px;
+            font-size: 15px;
+        }
+
+        input[type="number"],
+        input[type="text"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 13px 14px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 15px;
+            outline: none;
+            transition: 0.2s;
+            background: white;
+        }
+
+        input:focus,
+        textarea:focus,
+        select:focus {
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        textarea {
+            min-height: 130px;
+            resize: vertical;
+        }
+
+        .radio-group {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .radio-option {
+            flex: 1;
+            min-width: 130px;
+            cursor: pointer;
+        }
+
+        .radio-option input {
+            display: none;
+        }
+
+        .radio-option span {
+            display: block;
+            text-align: center;
+            padding: 13px;
+            border: 2px solid #e5e7eb;
+            border-radius: 9px;
+            font-weight: bold;
+            transition: 0.2s;
+            background: #fff;
+        }
+
+        .radio-option input:checked+span {
+            border-color: #2563eb;
+            background: #eff6ff;
+            color: #1d4ed8;
+        }
+
+        .radio-option.sim input:checked+span {
+            border-color: #16a34a;
+            background: #f0fdf4;
+            color: #15803d;
+        }
+
+        .radio-option.nao input:checked+span {
+            border-color: #dc2626;
+            background: #fef2f2;
+            color: #b91c1c;
+        }
+
+        .conditional {
+            display: none;
+            margin-top: 15px;
+            padding: 15px;
+            background: #f8fafc;
+            border-left: 4px solid #2563eb;
+            border-radius: 6px;
+        }
+
+        .conditional.active {
+            display: block;
+        }
+
+        .checkbox-list {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+
+        .checkbox-option {
+            cursor: pointer;
+        }
+
+        .checkbox-option input {
+            display: none;
+        }
+
+        .checkbox-option span {
+            display: block;
+            padding: 12px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 14px;
+            transition: 0.2s;
+        }
+
+        .checkbox-option input:checked+span {
+            border-color: #2563eb;
+            background: #eff6ff;
+            color: #1d4ed8;
+            font-weight: bold;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        button {
+            border: none;
+            border-radius: 9px;
+            padding: 14px 20px;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .btn-primary {
+            flex: 1;
+            background: #2563eb;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #1d4ed8;
+        }
+
+        .btn-secondary {
+            background: #e5e7eb;
+            color: #374151;
+        }
+
+        .btn-secondary:hover {
+            background: #d1d5db;
+        }
+
+        .history-item {
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 10px;
+            background: #fafafa;
+        }
+
+        .history-header {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 10px;
+        }
+
+        .badge {
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .badge-abertura {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .badge-fechamento {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        .history-info {
+            font-size: 13px;
+            color: #4b5563;
+            line-height: 1.7;
+        }
+
+        .empty {
+            text-align: center;
+            padding: 30px;
+            color: #9ca3af;
+        }
+
+        .success-message {
+            display: none;
+            padding: 15px;
+            background: #dcfce7;
+            color: #166534;
+            border: 1px solid #86efac;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .success-message.active {
+            display: block;
+        }
+
+        .required {
+            color: #dc2626;
+        }
+
+        footer {
+            text-align: center;
+            color: #6b7280;
+            font-size: 12px;
+            padding: 20px;
+        }
+
+        @media (max-width: 700px) {
+
+            .header-content {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .clock {
+                text-align: left;
+            }
+
+            .clock .time {
+                font-size: 20px;
+            }
+
+            .card {
+                padding: 18px;
+            }
+
+            .checkbox-list {
+                grid-template-columns: 1fr;
+            }
+
+            .actions {
+                flex-direction: column;
+            }
+
+            .radio-option {
+                min-width: 100%;
+            }
+        }
+
+        .history-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        .btn-copy {
+            background: #2563eb;
+            color: white;
+            padding: 9px 14px;
+            border-radius: 7px;
+            font-size: 13px;
+        }
+
+        .btn-copy:hover {
+            background: #1d4ed8;
+        }
+
+        .btn-copy.copied {
+            background: #16a34a;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+
+        <div class="header-content">
+
+            <div class="logo-area">
+                <h1>Checklist Operacional - TI</h1>
+                <p>Controle de abertura e fechamento do setor</p>
+            </div>
+
+            <div class="clock">
+                <div class="time" id="clock">00:00:00</div>
+                <div class="date" id="date">--/--/----</div>
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <main>
+
+        <div id="successMessage" class="success-message">
+            ✓ Checklist registrado com sucesso!
+        </div>
+
+
+        <!-- FORMULÁRIO -->
+
+        <form id="checklistForm">
+
+            <div class="card">
+
+                <div class="card-title">
+                    Informações do turno
+                </div>
+
+                <div class="form-group">
+
+                    <label class="title">
+                        Tipo de turno <span class="required">*</span>
+                    </label>
+
+                    <select id="turno" required>
+
+                        <option value="">
+                            Selecione...
+                        </option>
+
+                        <option value="Abertura">
+                            Abertura
+                        </option>
+
+                        <option value="Fechamento">
+                            Fechamento
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label class="title">
+                        Quantidade de baterias <span class="required">*</span>
+                    </label>
+
+                    <input type="number" id="baterias" min="0" placeholder="Digite a quantidade" required>
+
+                </div>
+
+            </div>
+
+
+            <!-- LINKS -->
+
+            <div class="card">
+
+                <div class="card-title">
+                    🌐 Links e conectividade
+                </div>
+
+                <div class="form-group">
+
+                    <label class="title">
+                        Todos os links estão online?
+                        <span class="required">*</span>
+                    </label>
+
+                    <div class="radio-group">
+
+                        <label class="radio-option sim">
+
+                            <input type="radio" name="links" value="Sim" required>
+
+                            <span>✓ SIM</span>
+
+                        </label>
+
+                        <label class="radio-option nao">
+
+                            <input type="radio" name="links" value="Não">
+
+                            <span>✕ NÃO</span>
+
+                        </label>
+
+                    </div>
+
+
+                    <div id="linksProblema" class="conditional">
+
+                        <strong>
+                            Quais links estão com problema?
+                        </strong>
+
+                        <div class="checkbox-list" style="margin-top:12px;">
+
+                            <label class="checkbox-option">
+
+                                <input type="checkbox" name="linkProblema" value="Wiki">
+
+                                <span>Wiki</span>
+
+                            </label>
+
+                            <label class="checkbox-option">
+
+                                <input type="checkbox" name="linkProblema" value="Embratel">
+
+                                <span>Embratel</span>
+
+                            </label>
+
+                            <label class="checkbox-option">
+
+                                <input type="checkbox" name="linkProblema" value="Equatorial / ORA">
+
+                                <span>Equatorial / ORA</span>
+
+                            </label>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ANTENAS -->
+
+                <div class="form-group">
+
+                    <label class="title">
+                        Alguma antena está OFF?
+                        <span class="required">*</span>
+                    </label>
+
+                    <div class="radio-group">
+
+                        <label class="radio-option sim">
+
+                            <input type="radio" name="antena" value="Sim" required>
+
+                            <span>✓ SIM</span>
+
+                        </label>
+
+                        <label class="radio-option nao">
+
+                            <input type="radio" name="antena" value="Não">
+
+                            <span>✕ NÃO</span>
+
+                        </label>
+
+                    </div>
+
+
+                    <div id="antenaProblema" class="conditional">
+
+                        <label class="title">
+                            Informe qual antena está OFF:
+                        </label>
+
+                        <input type="text" id="qualAntena" placeholder="Ex.: Antena 01 / Setor X">
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- VISTORIAS -->
+
+            <div class="card">
+
+                <div class="card-title">
+                    🔧 Vistorias
+                </div>
+
+
+                <div class="form-group">
+
+                    <label class="title">
+                        Vistoria Hack Central
+                        <span class="required">*</span>
+                    </label>
+
+                    <div class="radio-group">
+
+                        <label class="radio-option sim">
+
+                            <input type="radio" name="hack" value="Sim" required>
+
+                            <span>✓ SIM</span>
+
+                        </label>
+
+                        <label class="radio-option nao">
+
+                            <input type="radio" name="hack" value="Não">
+
+                            <span>✕ NÃO</span>
+
+                        </label>
+
+                    </div>
+
+                </div>
+
+
+                <!-- IMPRESSORAS -->
+
+                <div id="campoImpressoras" class="form-group">
+
+                    <label class="title">
+                        Vistoria das impressoras
+                    </label>
+
+                    <div class="radio-group">
+
+                        <label class="radio-option sim">
+
+                            <input type="radio" name="impressoras" value="Sim">
+
+                            <span>✓ SIM</span>
+
+                        </label>
+
+                        <label class="radio-option nao">
+
+                            <input type="radio" name="impressoras" value="Não">
+
+                            <span>✕ NÃO</span>
+
+                        </label>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ROTINAS SEMANAIS -->
+
+            <div id="rotinasFechamento" class="card">
+
+                <div class="card-title">
+                    📋 Rotinas do fechamento
+                </div>
+
+
+                <div class="form-group">
+
+                    <label class="title">
+                        Reabastecimento das etiquetas
+                    </label>
+
+                    <div class="radio-group">
+
+                        <label class="radio-option sim">
+
+                            <input type="radio" name="etiquetas" value="Sim">
+
+                            <span>✓ SIM</span>
+
+                        </label>
+
+                        <label class="radio-option nao">
+
+                            <input type="radio" name="etiquetas" value="Não">
+
+                            <span>✕ NÃO</span>
+
+                        </label>
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label class="title">
+                        Auditoria feita
+                    </label>
+
+                    <div class="radio-group">
+
+                        <label class="radio-option sim">
+
+                            <input type="radio" name="auditoria" value="Sim">
+
+                            <span>✓ SIM</span>
+
+                        </label>
+
+                        <label class="radio-option nao">
+
+                            <input type="radio" name="auditoria" value="Não">
+
+                            <span>✕ NÃO</span>
+
+                        </label>
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label class="title">
+                        Limpeza das impressoras
+                    </label>
+
+                    <div class="radio-group">
+
+                        <label class="radio-option sim">
+
+                            <input type="radio" name="limpeza" value="Sim">
+
+                            <span>✓ SIM</span>
+
+                        </label>
+
+                        <label class="radio-option nao">
+
+                            <input type="radio" name="limpeza" value="Não">
+
+                            <span>✕ NÃO</span>
+
+                        </label>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- OBSERVAÇÕES -->
+
+            <div class="card">
+
+                <div class="card-title">
+                    📝 Observações
+                </div>
+
+                <div class="form-group">
+
+                    <label class="title">
+                        Deseja informar alguma observação?
+                    </label>
+
+                    <textarea id="observacoes" placeholder="Digite aqui qualquer informação adicional..."></textarea>
+
+                </div>
+
+            </div>
+
+
+            <div class="actions">
+
+                <button type="submit" class="btn-primary">
+                    ✓ FINALIZAR CHECKLIST
+                </button>
+
+                <button type="button" class="btn-secondary" onclick="limparFormulario()">
+                    Limpar
+                </button>
+
+            </div>
+
+        </form>
+
+
+        <!-- HISTÓRICO -->
+
+        <div class="card" style="margin-top:30px;">
+
+            <div class="card-title">
+                📊 Histórico dos registros
+                <button type="button" class="btn-primary" onclick="window.location.href='historico.html'"
+                    style="margin-bottom:20px;">
+                    🔎 FILTRAR HISTÓRICO
+                </button>
+            </div>
+
+            <div id="historico"></div>
+
+            <button class="btn-secondary" onclick="limparHistorico()" style="margin-top:15px;">
+                🗑 Apagar histórico
+            </button>
+
+        </div>
+
+    </main>
+
+
+    <footer>
+        Sistema de Checklist Operacional • TI
+    </footer>
+
+
+    <script>
+        async function copiarChecklist(id, botao) {
+
+            const historico =
+                JSON.parse(
+                    localStorage.getItem("checklists")
+                ) || [];
+
+
+            const registro =
+                historico.find(
+                    item => item.id === id
+                );
+
+
+            if (!registro) {
+
+                alert(
+                    "Checklist não encontrado."
+                );
+
+                return;
+            }
+
+
+            let mensagem = "";
+
+
+            mensagem +=
+                "📋 CHECKLIST OPERACIONAL - TI\n";
+
+            mensagem +=
+                "━━━━━━━━━━━━━━━━━━━━\n\n";
+
+
+            mensagem +=
+                `📅 Data: ${registro.data}\n`;
+
+            mensagem +=
+                `⏰ Horário: ${registro.hora}\n`;
+
+            mensagem +=
+                `🔄 Turno: ${registro.turno.toUpperCase()}\n\n`;
+
+
+            mensagem +=
+                `🔋 Baterias: ${registro.baterias}\n\n`;
+
+
+            /* LINKS */
+
+            mensagem +=
+                "🌐 LINKS\n";
+
+
+            if (
+                registro.links === "Sim"
+            ) {
+
+                mensagem +=
+                    "✅ Todos os links online: SIM\n";
+
+            } else {
+
+                mensagem +=
+                    "❌ Todos os links online: NÃO\n";
+
+
+                if (
+                    registro.linksProblema &&
+                    registro.linksProblema.length
+                ) {
+
+                    mensagem +=
+                        "⚠️ Links com problema:\n";
+
+
+                    registro.linksProblema
+                        .forEach(
+                            link => {
+
+                                mensagem +=
+                                    `• ${link}\n`;
+
+                            }
+                        );
+
+                }
+
+            }
+
+
+            mensagem += "\n";
+
+
+            /* ANTENAS */
+
+            mensagem +=
+                "📡 ANTENAS\n";
+
+
+            if (
+                registro.antena === "Não"
+            ) {
+
+                mensagem +=
+                    "✅ Nenhuma antena OFF\n";
+
+            } else {
+
+                mensagem +=
+                    "❌ Existe antena OFF\n";
+
+
+                if (
+                    registro.qualAntena
+                ) {
+
+                    mensagem +=
+                        `⚠️ Antena: ${registro.qualAntena}\n`;
+
+                }
+
+            }
+
+
+            mensagem += "\n";
+
+
+            /* HACK */
+
+            mensagem +=
+                "🔧 VISTORIA HACK CENTRAL\n";
+
+
+            mensagem +=
+                registro.hack === "Sim"
+                    ? "✅ Realizada\n"
+                    : "❌ Não realizada\n";
+
+
+            mensagem += "\n";
+
+
+            /* IMPRESSORAS */
+
+            if (
+                registro.impressoras
+            ) {
+
+                mensagem +=
+                    "🖨️ VISTORIA DAS IMPRESSORAS\n";
+
+
+                mensagem +=
+                    registro.impressoras === "Sim"
+                        ? "✅ Realizada\n"
+                        : "❌ Não realizada\n";
+
+
+                mensagem += "\n";
+
+            }
+
+
+            /* ROTINAS DO FECHAMENTO */
+
+            if (
+                registro.turno === "Fechamento"
+            ) {
+
+                mensagem +=
+                    "📋 ROTINAS DO FECHAMENTO\n";
+
+
+                if (
+                    registro.etiquetas
+                ) {
+
+                    mensagem +=
+                        `🏷️ Reabastecimento das etiquetas: ${registro.etiquetas}\n`;
+
+                }
+
+
+                if (
+                    registro.auditoria
+                ) {
+
+                    mensagem +=
+                        `🔎 Auditoria feita: ${registro.auditoria}\n`;
+
+                }
+
+
+                if (
+                    registro.limpeza
+                ) {
+
+                    mensagem +=
+                        `🧹 Limpeza das impressoras: ${registro.limpeza}\n`;
+
+                }
+
+
+                mensagem += "\n";
+
+            }
+
+
+            /* OBSERVAÇÕES */
+
+            mensagem +=
+                "📝 OBSERVAÇÕES\n";
+
+
+            if (
+                registro.observacoes &&
+                registro.observacoes.trim()
+            ) {
+
+                mensagem +=
+                    registro.observacoes.trim()
+                    + "\n";
+
+            } else {
+
+                mensagem +=
+                    "Nenhuma observação.\n";
+
+            }
+
+
+            mensagem += "\n";
+
+            mensagem +=
+                "━━━━━━━━━━━━━━━━━━━━\n";
+
+            mensagem +=
+                "✅ CHECKLIST FINALIZADO";
+
+
+            /* COPIAR */
+
+            try {
+
+                await navigator.clipboard.writeText(
+                    mensagem
+                );
+
+            } catch (erro) {
+
+                const textarea =
+                    document.createElement("textarea");
+
+                textarea.value = mensagem;
+
+                document.body.appendChild(
+                    textarea
+                );
+
+                textarea.select();
+
+                document.execCommand("copy");
+
+                textarea.remove();
+
+            }
+
+
+            /* ALTERAR BOTÃO */
+
+            const textoOriginal =
+                botao.innerHTML;
+
+
+            botao.innerHTML =
+                "✓ Copiado!";
+
+
+            botao.classList.add(
+                "copied"
+            );
+
+
+            setTimeout(
+                () => {
+
+                    botao.innerHTML =
+                        textoOriginal;
+
+                    botao.classList.remove(
+                        "copied"
+                    );
+
+                },
+                2000
+            );
+
+        }
+
+        /* =========================
+           RELÓGIO
+        ========================= */
+
+        function atualizarRelogio() {
+
+            const agora = new Date();
+
+            const hora = agora.toLocaleTimeString(
+                'pt-BR'
+            );
+
+            const data = agora.toLocaleDateString(
+                'pt-BR'
+            );
+
+            document.getElementById(
+                'clock'
+            ).textContent = hora;
+
+            document.getElementById(
+                'date'
+            ).textContent = data;
+        }
+
+        setInterval(
+            atualizarRelogio,
+            1000
+        );
+
+        atualizarRelogio();
+
+
+        /* =========================
+           MUDANÇA DE TURNO
+        ========================= */
+
+        document
+            .getElementById('turno')
+            .addEventListener(
+                'change',
+                function () {
+
+                    const turno = this.value;
+
+                    const impressoras =
+                        document.getElementById(
+                            'campoImpressoras'
+                        );
+
+                    const rotinas =
+                        document.getElementById(
+                            'rotinasFechamento'
+                        );
+
+                    if (turno === 'Abertura') {
+
+                        impressoras
+                            .classList
+                            .remove('hidden');
+
+                        rotinas
+                            .classList
+                            .add('hidden');
+
+                    }
+
+                    else if (turno === 'Fechamento') {
+
+                        impressoras
+                            .classList
+                            .add('hidden');
+
+                        rotinas
+                            .classList
+                            .remove('hidden');
+
+                    }
+
+                    else {
+
+                        impressoras
+                            .classList
+                            .remove('hidden');
+
+                        rotinas
+                            .classList
+                            .remove('hidden');
+
+                    }
+
+                }
+            );
+
+
+        /* =========================
+           LINKS
+        ========================= */
+
+        document
+            .querySelectorAll(
+                'input[name="links"]'
+            )
+            .forEach(
+                radio => {
+
+                    radio.addEventListener(
+                        'change',
+                        function () {
+
+                            const box =
+                                document
+                                    .getElementById(
+                                        'linksProblema'
+                                    );
+
+                            if (
+                                this.value === 'Não'
+                            ) {
+
+                                box
+                                    .classList
+                                    .add('active');
+
+                            }
+
+                            else {
+
+                                box
+                                    .classList
+                                    .remove('active');
+
+                                document
+                                    .querySelectorAll(
+                                        'input[name="linkProblema"]'
+                                    )
+                                    .forEach(
+                                        checkbox => {
+                                            checkbox.checked =
+                                                false;
+                                        }
+                                    );
+
+                            }
+
+                        }
+                    );
+
+                }
+            );
+
+
+        /* =========================
+           ANTENAS
+        ========================= */
+
+        document
+            .querySelectorAll(
+                'input[name="antena"]'
+            )
+            .forEach(
+                radio => {
+
+                    radio.addEventListener(
+                        'change',
+                        function () {
+
+                            const box =
+                                document
+                                    .getElementById(
+                                        'antenaProblema'
+                                    );
+
+                            if (
+                                this.value === 'Sim'
+                            ) {
+
+                                box
+                                    .classList
+                                    .add('active');
+
+                            }
+
+                            else {
+
+                                box
+                                    .classList
+                                    .remove('active');
+
+                                document
+                                    .getElementById(
+                                        'qualAntena'
+                                    )
+                                    .value = '';
+
+                            }
+
+                        }
+                    );
+
+                }
+            );
+
+
+        /* =========================
+           SALVAR
+        ========================= */
+
+        document
+            .getElementById(
+                'checklistForm'
+            )
+            .addEventListener(
+                'submit',
+                function (event) {
+
+                    event.preventDefault();
+
+
+                    const turno =
+                        document
+                            .getElementById(
+                                'turno'
+                            )
+                            .value;
+
+
+                    const baterias =
+                        document
+                            .getElementById(
+                                'baterias'
+                            )
+                            .value;
+
+
+                    const links =
+                        document
+                            .querySelector(
+                                'input[name="links"]:checked'
+                            );
+
+
+                    const antena =
+                        document
+                            .querySelector(
+                                'input[name="antena"]:checked'
+                            );
+
+
+                    const hack =
+                        document
+                            .querySelector(
+                                'input[name="hack"]:checked'
+                            );
+
+
+                    const impressoras =
+                        document
+                            .querySelector(
+                                'input[name="impressoras"]:checked'
+                            );
+
+
+                    const etiquetas =
+                        document
+                            .querySelector(
+                                'input[name="etiquetas"]:checked'
+                            );
+
+
+                    const auditoria =
+                        document
+                            .querySelector(
+                                'input[name="auditoria"]:checked'
+                            );
+
+
+                    const limpeza =
+                        document
+                            .querySelector(
+                                'input[name="limpeza"]:checked'
+                            );
+
+
+                    const linksProblema =
+                        Array
+                            .from(
+                                document
+                                    .querySelectorAll(
+                                        'input[name="linkProblema"]:checked'
+                                    )
+                            )
+                            .map(
+                                checkbox =>
+                                    checkbox.value
+                            );
+
+
+                    const observacoes =
+                        document
+                            .getElementById(
+                                'observacoes'
+                            )
+                            .value;
+
+
+                    const qualAntena =
+                        document
+                            .getElementById(
+                                'qualAntena'
+                            )
+                            .value;
+
+
+                    /* DATA */
+
+                    const agora =
+                        new Date();
+
+
+                    const registro = {
+
+                        id:
+                            Date.now(),
+
+                        data:
+                            agora
+                                .toLocaleDateString(
+                                    'pt-BR'
+                                ),
+
+                        hora:
+                            agora
+                                .toLocaleTimeString(
+                                    'pt-BR'
+                                ),
+
+                        turno:
+                            turno,
+
+                        baterias:
+                            baterias,
+
+                        links:
+                            links
+                                ? links.value
+                                : '',
+
+                        linksProblema:
+                            linksProblema,
+
+                        antena:
+                            antena
+                                ? antena.value
+                                : '',
+
+                        qualAntena:
+                            qualAntena,
+
+                        hack:
+                            hack
+                                ? hack.value
+                                : '',
+
+                        impressoras:
+                            impressoras
+                                ? impressoras.value
+                                : '',
+
+                        etiquetas:
+                            etiquetas
+                                ? etiquetas.value
+                                : '',
+
+                        auditoria:
+                            auditoria
+                                ? auditoria.value
+                                : '',
+
+                        limpeza:
+                            limpeza
+                                ? limpeza.value
+                                : '',
+
+                        observacoes:
+                            observacoes
+
+                    };
+
+
+                    /* PEGAR HISTÓRICO */
+
+                    let historico =
+                        JSON.parse(
+                            localStorage
+                                .getItem(
+                                    'checklists'
+                                )
+                        ) || [];
+
+
+                    historico.unshift(
+                        registro
+                    );
+
+
+                    localStorage.setItem(
+                        'checklists',
+                        JSON.stringify(
+                            historico
+                        )
+                    );
+
+
+                    /* MENSAGEM */
+
+                    const mensagem =
+                        document
+                            .getElementById(
+                                'successMessage'
+                            );
+
+                    mensagem
+                        .classList
+                        .add('active');
+
+
+                    setTimeout(
+                        () => {
+
+                            mensagem
+                                .classList
+                                .remove('active');
+
+                        },
+                        4000
+                    );
+
+
+                    carregarHistorico();
+
+                    limparFormulario();
+
+                }
+            );
+
+
+        /* =========================
+           CARREGAR HISTÓRICO
+        ========================= */
+
+        function carregarHistorico() {
+
+            const container =
+                document.getElementById("historico");
+
+            const historico =
+                JSON.parse(
+                    localStorage.getItem("checklists")
+                ) || [];
+
+
+            if (historico.length === 0) {
+
+                container.innerHTML = `
+            <div class="empty">
+                Nenhum checklist registrado.
+            </div>
+        `;
+
+                return;
+            }
+
+
+            container.innerHTML =
+                historico
+                    .map(
+                        registro => {
+
+                            const classe =
+                                registro.turno === "Abertura"
+                                    ? "badge-abertura"
+                                    : "badge-fechamento";
+
+
+                            return `
+
+                <div class="history-item">
+
+                    <div class="history-header">
+
+                        <strong>
+                            ${registro.data}
+                            às
+                            ${registro.hora}
+                        </strong>
+
+                        <span class="badge ${classe}">
+                            ${registro.turno}
+                        </span>
+
+                    </div>
+
+
+                    <div class="history-info">
+
+                        🔋 Baterias:
+                        <strong>
+                            ${registro.baterias}
+                        </strong>
+
+                        <br>
+
+
+                        🌐 Links:
+                        <strong>
+                            ${registro.links}
+                        </strong>
+
+
+                        ${registro.links === "Não"
+                                    ?
+                                    `
+                            <br>
+                            ⚠️ Links com problema:
+                            <strong>
+                                ${registro.linksProblema.length
+                                        ?
+                                        registro.linksProblema.join(", ")
+                                        :
+                                        "Não informado"
+                                    }
+                            </strong>
+                            `
+                                    :
+                                    ""
+                                }
+
+
+                        <br>
+
+
+                        📡 Antenas:
+                        <strong>
+                            ${registro.antena === "Não"
+                                    ? "Nenhuma OFF"
+                                    : "Existe antena OFF"
+                                }
+                        </strong>
+
+
+                        ${registro.qualAntena
+                                    ?
+                                    `
+                            <br>
+                            ⚠️ Antena:
+                            <strong>
+                                ${registro.qualAntena}
+                            </strong>
+                            `
+                                    :
+                                    ""
+                                }
+
+
+                        <br>
+
+
+                        🔧 Hack Central:
+                        <strong>
+                            ${registro.hack || "Não informado"}
+                        </strong>
+
+
+                        ${registro.impressoras
+                                    ?
+                                    `
+                            <br>
+                            🖨️ Impressoras:
+                            <strong>
+                                ${registro.impressoras}
+                            </strong>
+                            `
+                                    :
+                                    ""
+                                }
+
+
+                        ${registro.etiquetas
+                                    ?
+                                    `
+                            <br>
+                            🏷️ Etiquetas:
+                            <strong>
+                                ${registro.etiquetas}
+                            </strong>
+                            `
+                                    :
+                                    ""
+                                }
+
+
+                        ${registro.auditoria
+                                    ?
+                                    `
+                            <br>
+                            🔎 Auditoria:
+                            <strong>
+                                ${registro.auditoria}
+                            </strong>
+                            `
+                                    :
+                                    ""
+                                }
+
+
+                        ${registro.limpeza
+                                    ?
+                                    `
+                            <br>
+                            🧹 Limpeza:
+                            <strong>
+                                ${registro.limpeza}
+                            </strong>
+                            `
+                                    :
+                                    ""
+                                }
+
+
+                        ${registro.observacoes
+                                    ?
+                                    `
+                            <br><br>
+                            📝 <strong>Observação:</strong>
+                            <br>
+                            ${registro.observacoes}
+                            `
+                                    :
+                                    ""
+                                }
+
+                    </div>
+
+
+                    <div class="history-actions">
+
+                        <button
+                            class="btn-copy"
+                            onclick="copiarChecklist(${registro.id}, this)"
+                        >
+                            📋 Copiar
+                        </button>
+
+                    </div>
+
+                </div>
+
+                `;
+
+                        }
+                    )
+                    .join("");
+
+        }
+
+
+        /* =========================
+           LIMPAR FORMULÁRIO
+        ========================= */
+
+        function limparFormulario() {
+
+            document
+                .getElementById(
+                    'checklistForm'
+                )
+                .reset();
+
+
+            document
+                .getElementById(
+                    'linksProblema'
+                )
+                .classList
+                .remove('active');
+
+
+            document
+                .getElementById(
+                    'antenaProblema'
+                )
+                .classList
+                .remove('active');
+
+
+            document
+                .getElementById(
+                    'campoImpressoras'
+                )
+                .classList
+                .remove('hidden');
+
+
+            document
+                .getElementById(
+                    'rotinasFechamento'
+                )
+                .classList
+                .remove('hidden');
+
+        }
+
+
+        /* =========================
+           APAGAR HISTÓRICO
+        ========================= */
+
+        function limparHistorico() {
+
+            const confirmar =
+                confirm(
+                    'Tem certeza que deseja apagar todo o histórico?'
+                );
+
+
+            if (
+                confirmar
+            ) {
+
+                localStorage.removeItem(
+                    'checklists'
+                );
+
+                carregarHistorico();
+
+            }
+
+        }
+
+
+        /* =========================
+           INICIALIZAÇÃO
+        ========================= */
+
+        carregarHistorico();
+
+    </script>
+
+</body>
+
+</html>
